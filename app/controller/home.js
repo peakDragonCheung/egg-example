@@ -7,7 +7,6 @@ class HomeController extends Controller {
     this.ctx.body = 'hi';
   }
   async login() {
-    debugger
     if (this.ctx.query.userName === 'zhang' && this.ctx.query.passWord === '123') {
       this.ctx.body = {
         success: true,
