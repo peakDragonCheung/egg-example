@@ -7,9 +7,9 @@ class userService extends Service {
     const user = await this.app.mysql.get('user', { username: name, password });
     return !!user;
   }
-  async insertUser(name , password) {
+  async insertUser(name, password) {
     const sql = 'INSERT INTO user (username,password) VALUES (?,?)';
-    const result = await this.app.mysql.query(sql, [name,password]);
+    const result = await this.app.mysql.query(sql, [ name, password ]);
     return result;
   }
 }
