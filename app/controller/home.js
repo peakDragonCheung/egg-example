@@ -25,7 +25,7 @@ class HomeController extends Controller {
   async register() {
     const { ctx } = this;
     const params = ctx.request.body;
-    if(params.userName && params.passWord) {
+    if (params.userName && params.passWord) {
       const result = await ctx.service.user.insertUser(params.userName, params.passWord);
       ctx.body = {
         success: true,

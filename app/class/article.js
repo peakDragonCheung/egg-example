@@ -1,22 +1,35 @@
 'use strict';
 class article {
   constructor(content, title, pictureUrl) {
-    this.content = content;
-    this.title = title;
-    this.pictureUrl = pictureUrl;
-    this.createTime = new Date().getTime();
-    this.praiseNum = 0;
-    this.comment = [];
-    this.cliNum = 0;
+    this._Content = content;
+    this._Title = title;
+    this._PictureUrl = pictureUrl;
+    this._CreateTime = new Date().getTime();
+    this._PraiseNum = 0;
+    this._Comments = [];
+    this._CliNum = 0;
+    const keyArray = Object.keys(this);
+    // 循环定义set，get方法，减少代码量。其他类型的可以在下面覆盖。
+    keyArray.forEach(key => {
+      this[`set${key.slice(1)}`] = function(value) {
+        this[key] = value;
+      };
+      this[`get${key.slice(1)}`] = function() {
+        return this[key];
+      };
+    });
   }
-  set content(value) {
-    throw ('这个是私有变量无法进行赋值！');
+  setComments(value) {
+    if (Array.isArray(value)) {
+      this._Comments = this._Comments.concat(value);
+    } else {
+      this._Comments.push(value);
+    }
   }
-  get content() {
-    return undefined;
+  getComments() {
+    return this._Comments;
   }
-  getContent() {
-    return this.content;
+  deleteComments() {
   }
 }
 module.exports = article;
