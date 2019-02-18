@@ -11,9 +11,22 @@ class articleService extends Service {
   }
   async getArticles(pageNum = 0, pageSize = 10) {
     if (pageSize) {
-      const sql = 'select * from t_article limit ?,?';
+      // 子查询，查出前五篇文章以及其评论，在进行处理
+      const sql = 'SELECT * FROM (SELECT * FROM t_article LIMIT ?,?) AS t_size LEFT JOIN t_comment ON t_size.id = t_comment.ac_id;';
       const result = await this.app.mysql.query(sql, [ (pageNum - 1) * pageSize, pageSize ]);
-      return result;
+      const object = {};
+      result.forEach(element => {
+        if (object.hasOwnProperty(element.id));
+        else {
+          object[element.id] = element;
+          element.comments = [];
+        }
+        object[element.id].comments.push({
+          commentContent: element.commentContent,
+          comm_createTime: element.commentContent,
+        });
+      });
+      return Object.values(object);
     }
   }
 }
