@@ -14,6 +14,8 @@ class articleService extends Service {
       // 子查询，查出前五篇文章以及其评论，在进行处理
       const sql = 'SELECT * FROM (SELECT * FROM t_article LIMIT ?,?) AS t_size LEFT JOIN t_comment ON t_size.id = t_comment.ac_id;';
       const result = await this.app.mysql.query(sql, [ (pageNum - 1) * pageSize, pageSize ]);
+      let totle = await this.app.mysql.query('select * from t_article');
+      totle = totle.length;
       const object = {};
       result.forEach(element => {
         if (object.hasOwnProperty(element.id));
@@ -26,7 +28,10 @@ class articleService extends Service {
           comm_createTime: element.commentContent,
         });
       });
-      return Object.values(object);
+      return {
+        totle,
+        list: Object.values(object),
+      };
     }
   }
 }
