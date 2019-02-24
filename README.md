@@ -29,5 +29,6 @@ $ npm stop
 - Use `npm test` to run unit test.
 - Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
 
+# 关于项目名
+原来是打算写一个模仿QQ音乐的网页的后台api,后来发现没有自己的blog，就改成自己的blog网站。
 
-[egg]: https://eggjs.org
