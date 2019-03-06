@@ -34,5 +34,14 @@ class articleService extends Service {
       };
     }
   }
+  async insertArticle(title = '标题', content = '', shortContent = '') {
+    const sql = 'insert into t_article (title, content, shortContent) values (?,?,?)';
+    const result = await this.app.mysql.query(sql, [title, content, shortContent]);
+    if(result) {
+      return result;
+    } else {
+      return false;
+    }
+  }
 }
 module.exports = articleService;

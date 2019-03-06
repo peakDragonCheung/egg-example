@@ -26,5 +26,21 @@ class ArticleController extends Controller {
       };
     }
   }
+  async insertArticle() {
+    const { ctx } = this;
+    const params = ctx.request.body;
+    const result = await ctx.service.article.insertArticle(params.title, params.content, params.shortContent);
+    if(result) {
+      ctx.body = {
+        statue: true,
+        data: result
+      }
+    } else {
+      return {
+        statue: false,
+        data: result
+      }
+    }
+  }
 }
 module.exports = ArticleController;
